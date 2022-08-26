@@ -34,7 +34,8 @@
       /* Chrome 10-25, Safari 5.1-6 */
       background: linear-gradient(to right, #ff9472, #f2709c);
       /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
+      display: flex;
+      justify-content: space-around;
       height: 30px;
       padding: 5px;
       text-align: center;
@@ -140,7 +141,8 @@
 <body>
   <div class="card w-50">
     <div class="card-header">
-      Group chat to world wide
+      <span>Group chat to world wide</span>
+      <span class=" fw-bold">Online : <span id="tonline" class="text-success fw-bold">0</span></span>
     </div>
     <div class="card-body ">
       <div id="allSmS">
@@ -163,12 +165,12 @@
   <script src="/socket.io/socket.io.js"></script>
   <script>
     var socket = io();
-
+    var totalUser = 0;
     let uname;
     do {
       uname = prompt(" Add Your Name")
     } while (!uname)
-    if (uname !== null) {
+    if (uname !== null || uname.trim() !=='') {
       function capitalize(s) {
         return s[0].toUpperCase() + s.slice(1);
       }
@@ -262,6 +264,11 @@
 
         appendNewUserMsg(msg, 'text-danger');
 
+      });
+      socket.on('status', function (msg) {
+        var statusUser = document.getElementById('tonline');
+        statusUser.innerText=msg;
+       console.log("status",msg)
       });
 
 

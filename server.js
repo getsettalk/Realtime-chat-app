@@ -9,11 +9,16 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
 
+var totalUser = 0;
 io.on('connection', (socket) => {
-  console.log('a user connected');
+  totalUser = totalUser+1;
+  io.emit('status', totalUser);
+  console.log('a user connected', totalUser);
   socket.broadcast.emit('newuser', 'New User Connected');
   socket.on('disconnect', () => {
-    console.log('user disconnected');
+    console.log('user disconnected', totalUser);
+    totalUser = totalUser-1;
+    io.emit('status', totalUser);
     socket.broadcast.emit('Discuser', 'A new user has been disconnected ?');
   });
 });
