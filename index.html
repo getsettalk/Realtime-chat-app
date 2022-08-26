@@ -167,7 +167,7 @@
       uname = prompt(" Add Your Name")
     } while (!uname)
     if (uname !== null) {
-     // console.log(uname)
+      // console.log(uname)
       var form = document.getElementById('form');
 
       var out = document.createElement('div');
@@ -175,7 +175,7 @@
       var allsms = document.getElementById('allSmS');
 
       function appendMsg(msg, type) {
-       // console.log("Self", msg)
+        // console.log("Self", msg)
         let newdiv = document.createElement('div');
         newdiv.classList.add(type, 'float-end')
         let marker = `<div id="outID">${msg.name}</div>
@@ -199,15 +199,17 @@
         allsms.scrollTop = allsms.scrollHeight;
       }
 
-      function appendNewUserMsg(msg) {
+      function appendNewUserMsg(msg, clr) {
+        console.log(clr)
         let newdiv = document.createElement('div');
         newdiv.classList.add('inc', 'float-start', 'newUser', 'text-center')
         let marker = `
-          <span id="in-msg">${msg}</span>
+          <span id="in-msg" class=${clr}>${msg}</span>
    `;
         newdiv.innerHTML = marker;
         allsms.appendChild(newdiv)
-        window.navigator.vibrate(200)
+        allsms.scrollTop = allsms.scrollHeight;
+        window.navigator.vibrate(300)
       }
 
       function appendMsg3(newMsg) {
@@ -243,13 +245,20 @@
 
       socket.on('newuser', function (msg) {
         // console.log("cming",msg)
-        window.scrollTo(0, document.body.scrollHeight);
+
         window.navigator.vibrate(200)
-        /*var newUser = document.getElementById('newComnected');
-        newUser.innerText=msg;*/
-        appendNewUserMsg(msg);
+
+        appendNewUserMsg(msg, 'text-success');
 
       });
+      socket.on('Discuser', function (msg) {
+        // console.log("cming",msg)
+
+        appendNewUserMsg(msg, 'text-danger');
+
+      });
+
+
     }
     // made by sujeet kumar @getsettalk
   </script>
