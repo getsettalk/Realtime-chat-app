@@ -1,0 +1,52 @@
+.card {
+  height: 100vh;
+}
+
+.card-header{
+  background: linear-gradient(to right,#f87c7c,#7e7ef6);
+  padding: 5px;
+  text-align: center;
+}
+.card-body {
+  padding: 4px!important;
+  padding-top: 5px !important;
+  padding-bottom: 20px !important;
+  
+  overflow: scroll;
+}
+.card-body .inc{
+  background: rgba(109,29,252,0.539);
+  padding: 3px;
+  width: 60%;
+  border-radius: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.card-body .inc #incID {
+  color:#ececec;
+  font-family: Times New Roman;
+}
+.card-body .out {
+  background-color: rgba(76,229,155,0.548);
+  padding: 3px;
+  width: 60%;
+  border-radius: 10px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+}
+
+.card-body .out #outID {
+  color:#686868;
+  font-family: Times New Roman;
+}
+.card-footer {
+  padding: 0;
+}
+.card-footer form{
+  display: flex;
+  justify-content: center;
+  flex-direction: space-between;
+  padding: 3px;
+  gap: 5px;
+}
