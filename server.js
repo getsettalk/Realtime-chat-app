@@ -41,6 +41,10 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('chat message2', msg);
    // io.emit('chat message2', msg);
   });
+  socket.on("TypingStatus",(data)=>{
+    socket.broadcast.emit("getTypingStatus",data)
+    // console.log("Typing:"+data.TypingUsername)
+  })
 });
 
 server.listen(PORT, () => {

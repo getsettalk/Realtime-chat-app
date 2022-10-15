@@ -43,13 +43,12 @@
 
     .card-body {
       padding: 0px !important;
-
     }
 
     .card-body #allSmS {
       width: 100%;
       /* background-color: #686868; */
-      height: calc(100vh - 84px);
+      height: calc(100vh - 102px);
       overflow-y: auto;
       padding: 4px !important;
       padding-top: 5px !important;
@@ -61,7 +60,7 @@
       background: rgba(136, 4, 197, 0.661);
       padding: 3px;
       width: 60%;
-      border-radius:0px 10px 10px 0;
+      border-radius: 0px 10px 10px 0;
       margin-top: 5px;
       margin-bottom: 5px;
       box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -147,8 +146,10 @@
     <div class="card-body ">
       <div id="allSmS">
       </div>
+      <small id="typingUser"></small>
     </div>
     <div class="card-footer">
+
       <form id="form">
         <input type="text" placeholder="Enter Your Message" name="msg" id="msginput" class="form-control"
           autocomplete="off">
@@ -164,22 +165,37 @@
 
   <script src="/socket.io/socket.io.js"></script>
   <script>
+    var elem = document.documentElement;
+
+    /* View in fullscreen */
+    function openFullscreen() {
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+      } else if (elem.webkitRequestFullscreen) { /* Safari */
+        elem.webkitRequestFullscreen();
+      } else if (elem.msRequestFullscreen) { /* IE11 */
+        elem.msRequestFullscreen();
+      }
+    }
+
     var socket = io();
     var totalUser = 0;
     let uname;
     do {
-      uname = prompt(" Add Your Name")
+      uname = prompt(" Enter Your Name")
     } while (!uname)
-    if (uname !== null || uname.trim() !=='') {
+    if (uname !== null || uname.trim() !== '') {
       function capitalize(s) {
+        //openFullscreen() // do full screen always
         return s[0].toUpperCase() + s.slice(1);
       }
-      uname =capitalize(uname)
+      uname = capitalize(uname)
       // console.log(uname)
       var form = document.getElementById('form');
 
       var out = document.createElement('div');
       var input = document.getElementById('msginput');
+      var typingUser = document.getElementById('typingUser');
       var allsms = document.getElementById('allSmS');
 
       function appendMsg(msg, type) {
@@ -241,14 +257,40 @@
           appendMsg(custome, 'out')
 
           input.value = '';
+          typingUser.innerText = '';
         }
       });
 
+      // show typing user
+      let debounceTimer;
+      const debounce = (uname, time) => {
+        window.clearTimeout(debounceTimer);
+        debounceTimer = window.setTimeout(() => {
+          console.log("yyyy" + uname);
+          socket.emit('TypingStatus', { TypingUsername: uname });
+        }, time);
+      };
+      input.addEventListener('keydown', function () {
+        console.log("chang")
+        debounce(uname, 200)
+      })
+      // clear typing status every 300 second
+      
+        // const myTimeout =;
+        function RemoveTypingStatus(){
+          typingUser.innerText ='';
+          // console.log("removed")
+        }
+
       socket.on('chat message2', function (msg) {
         //console.log("cming",msg)
-
         appendMsg2(msg, 'inc');
-
+      });
+      socket.on('getTypingStatus', function (data) {
+        // console.log("ty", data.TypingUsername)
+        typingUser.innerText = "Typing:" + data.TypingUsername + "...";
+        setTimeout(RemoveTypingStatus,1000)
+        // appendMsg2(msg, 'inc');
       });
 
       socket.on('newuser', function (msg) {
@@ -267,8 +309,8 @@
       });
       socket.on('status', function (msg) {
         var statusUser = document.getElementById('tonline');
-        statusUser.innerText=msg;
-       console.log("status",msg)
+        statusUser.innerText = msg;
+        console.log("status", msg)
       });
 
 
