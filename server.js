@@ -5,21 +5,25 @@ const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
 const PORT = process.env.PORT ||3000;
+app.use(express.static('public'))
+
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
 
 var totalUser = 0;
 io.on('connection', (socket) => {
+  // console.log("socket id",socket.rooms)
   totalUser = totalUser+1;
   io.emit('status', totalUser);
-  console.log('a user connected', totalUser);
+  // console.log('a user connected', totalUser);
   socket.broadcast.emit('newuser', 'New User Connected');
-  socket.on('disconnect', () => {
-    console.log('user disconnected', totalUser);
+  socket.on('disconnect', (skt) => {
+    // console.log('user disconnected', totalUser);
+    
     totalUser = totalUser-1;
     io.emit('status', totalUser);
-    socket.broadcast.emit('Discuser', 'A new user has been disconnected ?');
+    socket.broadcast.emit('Discuser', 'A One user has been disconnected ?');
   });
 });
 /*io.on('connection', (socket) => {

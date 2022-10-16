@@ -4,11 +4,24 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f2709c" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <title>Secured Free Chat App:online</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
 
+  <meta name="description" content="This application is built by Sujeet kumar">
   <style>
+     :root {
+            --inccolor: #8F8BE8;
+            --outcolor: #e9eafd;
+            --alrtP:#ffe3e6;
+            --alrtS:#dcffe4;
+        }
+    @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
     body {
+      font-family: 'Roboto', sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -25,14 +38,18 @@
 
     .card {
       height: 100%;
+      border: none;
     }
 
     .card-header {
+      position: sticky;
+      top: 0;
+      left: 0;
       background: #f2709c;
       /* fallback for old browsers */
-      background: -webkit-linear-gradient(to right, #ff9472, #f2709c);
+      background: -webkit-linear-gradient(to right, #ff7282, #f2709c);
       /* Chrome 10-25, Safari 5.1-6 */
-      background: linear-gradient(to right, #ff9472, #f2709c);
+      background: linear-gradient(to right, #ff7282, #f2709c);
       /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
       display: flex;
       justify-content: space-around;
@@ -44,6 +61,15 @@
     .card-body {
       padding: 0px !important;
     }
+    .alertSMS {
+            background-color: var(--alrtP);
+            padding: 5px;
+            font-size: 1rem;
+            border-radius: 2px;
+            border: 1px solid var(--alrtP);
+            margin: 5px;
+        }
+
 
     .card-body #allSmS {
       width: 100%;
@@ -57,33 +83,62 @@
     }
 
     .card-body .inc {
-      background: rgba(136, 4, 197, 0.661);
-      padding: 3px;
-      width: 60%;
-      border-radius: 0px 10px 10px 0;
-      margin-top: 5px;
-      margin-bottom: 5px;
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+      width: 70%;
+      margin-top: 1px;
+      margin-bottom: 2px;
     }
 
+    .card-body .inc #in-msg {
+      float: left;
+      padding: 5px;
+      max-width: 70%;
+      box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+      border-radius: 0px 10px 10px 10px;
+      background: var(--inccolor);
+      font-size: 1.1rem;
+    }
+    .sound {
+            border-radius: 50%;
+            padding: 1.2px;
+            background-color: #dcffe4;
+            cursor: pointer;
+            box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
+        }
     .card-body .inc #incID {
-      color: #ececec;
-      font-family: Times New Roman;
+      color: #484646;
+      color: #333;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
     }
 
     .card-body .out {
-      background-color: rgba(34, 224, 133, 0.763);
+      width: 70%;
+      margin-top: 2px;
+      margin-bottom: 3px;
+
+    }
+
+    .card-body .out #out-msg {
+      float: right;
+      width: auto;
+      max-width: 70%;
       padding: 3px;
-      width: 60%;
-      border-radius: 10px 0px 0px 10px;
-      margin-top: 5px;
-      margin-bottom: 15px;
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      font-size: 1.1rem;
+      background-color: var(--outcolor);
+      border-radius: 10px 0px 10px 10px;
+      box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+
     }
 
     .card-body .out #outID {
-      color: #686868;
-      font-family: Times New Roman;
+      display: block;
+      float: right;
+      padding-right: 7px;
+      color: #333;
+      font-size: 14px;
+      font-weight: 300;
     }
 
     .card-footer {
@@ -99,15 +154,23 @@
       gap: 5px;
     }
 
-    .newUser {
-      background: black !important;
-      color: #fff;
 
-    }
 
     @media screen And (max-width:800px) {
       .w-50 {
         width: 100% !important;
+      }
+
+      .card-body .inc {
+        width: 80%;
+        margin-top: 1px;
+        margin-bottom: 2px;
+      }
+
+      .card-body .inc #in-msg {
+
+        max-width: 80%;
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
       }
     }
 
@@ -134,22 +197,28 @@
       }
     }
   </style>
-  <title>Simple Free Chat App:online</title>
 </head>
 
 <body>
   <div class="card w-50">
     <div class="card-header">
       <span>Group chat to world wide</span>
-      <span class=" fw-bold">Online : <span id="tonline" class="text-success fw-bold">0</span></span>
+      <span class=" fw-bold"><span class="sound" id="msgSound"> <i class="fa-solid fa-volume-high"></i></span> Online : <span id="tonline" class="text-success fw-bold">0</span></span>
     </div>
     <div class="card-body ">
       <div id="allSmS">
+        <div id="welcomeAlert" class=" alertSMS text-center">
+          Welcome <span id="loginUser"></span>.Thanks for using this secured chat application.Say Hello to all connected users...
+      </div>
       </div>
       <small id="typingUser"></small>
     </div>
     <div class="card-footer">
-
+      
+<audio id="myAudio">
+  <source src="recMuc.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
       <form id="form">
         <input type="text" placeholder="Enter Your Message" name="msg" id="msginput" class="form-control"
           autocomplete="off">
@@ -165,24 +234,12 @@
 
   <script src="/socket.io/socket.io.js"></script>
   <script>
-    var elem = document.documentElement;
-
-    /* View in fullscreen */
-    function openFullscreen() {
-      if (elem.requestFullscreen) {
-        elem.requestFullscreen();
-      } else if (elem.webkitRequestFullscreen) { /* Safari */
-        elem.webkitRequestFullscreen();
-      } else if (elem.msRequestFullscreen) { /* IE11 */
-        elem.msRequestFullscreen();
-      }
-    }
-
     var socket = io();
     var totalUser = 0;
     let uname;
+    var soundStatus = true;
     do {
-      uname = prompt(" Enter Your Name")
+      uname = prompt(" Enter Your Name:")
     } while (!uname)
     if (uname !== null || uname.trim() !== '') {
       function capitalize(s) {
@@ -190,9 +247,24 @@
         return s[0].toUpperCase() + s.slice(1);
       }
       uname = capitalize(uname)
+      document.getElementById('loginUser').innerHTML=uname;
       // console.log(uname)
       var form = document.getElementById('form');
-
+      var msgSound= document.getElementById('msgSound');
+      var myAudio = document.getElementById("myAudio"); 
+      msgSound.addEventListener("click",function(e){
+       
+        soundStatus = !soundStatus;
+        if (soundStatus == true) {
+          window.navigator.vibrate(300)
+          msgSound.innerHTML ='<i class="fa-solid fa-volume-high"></i>';
+        } else {
+          window.navigator.vibrate(300)
+          msgSound.innerHTML ='<i class="fa-solid fa-volume-xmark"></i>';
+        }
+        console.log(soundStatus)
+      })
+        
       var out = document.createElement('div');
       var input = document.getElementById('msginput');
       var typingUser = document.getElementById('typingUser');
@@ -202,7 +274,7 @@
         // console.log("Self", msg)
         let newdiv = document.createElement('div');
         newdiv.classList.add(type, 'float-end')
-        let marker = `<div id="outID">${msg.name}</div>
+        let marker = `<div id="outID"></div><br>
           <span id="out-msg">${msg.msg} </span>
    `;
         newdiv.innerHTML = marker;
@@ -215,16 +287,20 @@
         let newdiv = document.createElement('div');
         newdiv.classList.add(type, 'float-start')
         let marker = `<div id="incID">${msg.name}</div>
-          <span id="in-msg">${msg.msg}</span>
-   `;
+          <span id="in-msg">${msg.msg}</span>`;
         newdiv.innerHTML = marker;
         allsms.appendChild(newdiv)
+        if (soundStatus == true) {
+          myAudio.play();
+        }else{
+          myAudio.pause();
+        }
         window.navigator.vibrate(200)
         allsms.scrollTop = allsms.scrollHeight;
       }
 
       function appendNewUserMsg(msg, clr) {
-        console.log(clr)
+        // console.log(clr)
         let newdiv = document.createElement('div');
         newdiv.classList.add('inc', 'float-start', 'newUser', 'text-center')
         let marker = `
@@ -253,9 +329,8 @@
             msg: input.value
           }
           socket.emit('chat message', custome);
-
           appendMsg(custome, 'out')
-
+          document.getElementById('welcomeAlert').classList.add("d-none");
           input.value = '';
           typingUser.innerText = '';
         }
@@ -266,21 +341,20 @@
       const debounce = (uname, time) => {
         window.clearTimeout(debounceTimer);
         debounceTimer = window.setTimeout(() => {
-          console.log("yyyy" + uname);
+          // console.log("yyyy" + uname);
           socket.emit('TypingStatus', { TypingUsername: uname });
         }, time);
       };
       input.addEventListener('keydown', function () {
-        console.log("chang")
+        // console.log("chang")
         debounce(uname, 200)
       })
       // clear typing status every 300 second
-      
-        // const myTimeout =;
-        function RemoveTypingStatus(){
-          typingUser.innerText ='';
-          // console.log("removed")
-        }
+      // const myTimeout =;
+      function RemoveTypingStatus() {
+        typingUser.innerText = '';
+        // console.log("removed")
+      }
 
       socket.on('chat message2', function (msg) {
         //console.log("cming",msg)
@@ -289,31 +363,23 @@
       socket.on('getTypingStatus', function (data) {
         // console.log("ty", data.TypingUsername)
         typingUser.innerText = "Typing:" + data.TypingUsername + "...";
-        setTimeout(RemoveTypingStatus,1000)
+        setTimeout(RemoveTypingStatus, 1000)
         // appendMsg2(msg, 'inc');
       });
-
       socket.on('newuser', function (msg) {
         // console.log("cming",msg)
-
         window.navigator.vibrate(200)
-
         appendNewUserMsg(msg, 'text-success');
-
       });
       socket.on('Discuser', function (msg) {
         // console.log("cming",msg)
-
         appendNewUserMsg(msg, 'text-danger');
-
       });
       socket.on('status', function (msg) {
         var statusUser = document.getElementById('tonline');
         statusUser.innerText = msg;
-        console.log("status", msg)
+        // console.log("status", msg)
       });
-
-
     }
     // made by sujeet kumar @getsettalk
   </script>
