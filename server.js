@@ -1,10 +1,22 @@
 const express = require('express');
 const app = express();
 const http = require('http');
+const cors = require('cors');
+
 const server = http.createServer(app);
-const { Server } = require("socket.io");
-const io = new Server(server);
+// const { Server } = require("socket.io");
+
 const PORT = process.env.PORT ||3000;
+
+const io = require('socket.io')(server, {
+  cors: {
+    origin: '*',
+    methods: ['GET', 'POST']
+  }
+});
+app.use(cors());
+
+
 app.use(express.static('public'))
 
 app.get('/', (req, res) => {
@@ -13,10 +25,10 @@ app.get('/', (req, res) => {
 
 var totalUser = 0;
 io.on('connection', (socket) => {
-  // console.log("socket id",socket.rooms)
+  console.log("socket id",socket.rooms)
   totalUser = totalUser+1;
   io.emit('status', totalUser);
-  // console.log('a user connected', totalUser);
+  console.log('a user connected', totalUser);
   socket.broadcast.emit('newuser', 'New User Connected');
   socket.on('disconnect', (skt) => {
     // console.log('user disconnected', totalUser);
