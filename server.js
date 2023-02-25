@@ -61,6 +61,12 @@ console.log('message: ' + msg);
     socket.broadcast.emit("getTypingStatus",data)
     // console.log("Typing:"+data.TypingUsername)
   })
+
+  // read images data 
+  socket.on('image',(data)=>{
+    // console.log(data)
+    socket.broadcast.emit('imageCome', data);
+  })
 });
 
 server.listen(PORT, () => {

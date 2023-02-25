@@ -12,12 +12,13 @@
 
   <meta name="description" content="This application is built by Sujeet kumar">
   <style>
-     :root {
-            --inccolor: #8F8BE8;
-            --outcolor: #e9eafd;
-            --alrtP:#ffe3e6;
-            --alrtS:#dcffe4;
-        }
+    :root {
+      --inccolor: #8F8BE8;
+      --outcolor: #e9eafd;
+      --alrtP: #ffe3e6;
+      --alrtS: #dcffe4;
+    }
+
     @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
     body {
@@ -61,14 +62,15 @@
     .card-body {
       padding: 0px !important;
     }
+
     .alertSMS {
-            background-color: var(--alrtP);
-            padding: 5px;
-            font-size: 1rem;
-            border-radius: 2px;
-            border: 1px solid var(--alrtP);
-            margin: 5px;
-        }
+      background-color: var(--alrtP);
+      padding: 5px;
+      font-size: 1rem;
+      border-radius: 2px;
+      border: 1px solid var(--alrtP);
+      margin: 5px;
+    }
 
 
     .card-body #allSmS {
@@ -98,14 +100,21 @@
       background: var(--inccolor);
       font-size: 1.1rem;
     }
+
+    .card-body .inc #in-msg .incImageSize {
+      width: 100%;
+      
+    }
+
     .sound {
-            border-radius: 50%;
-            padding: 1.2px;
-            background-color: #dcffe4;
-            cursor: pointer;
-            box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
-        }
-    .card-body .inc #incID {
+      border-radius: 50%;
+      padding: 1.2px;
+      background-color: #dcffe4;
+      cursor: pointer;
+      box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
+    }
+
+    .card-body .inc .incID {
       color: #484646;
       color: #333;
       font-size: 14px;
@@ -172,6 +181,11 @@
         max-width: 80%;
         box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
       }
+
+      .card-body .inc #in-msg .incImageSize {
+        width: 100%;
+        /* max-width: 82%; */
+      }
     }
 
     @media screen And (min-width:762px) {
@@ -203,23 +217,49 @@
   <div class="card w-50">
     <div class="card-header">
       <span class="text-light fw-bold">Group chat to world wide</span>
-      <span class=" fw-bold"><span class="sound" id="msgSound"> <i class="fa-solid fa-volume-high"></i></span> Online : <span id="tonline" class="text-success fw-bold">0</span></span>
+      <span class=" fw-bold"><span class="sound" id="msgSound"> <i class="fa-solid fa-volume-high"></i></span> Online :
+        <span id="tonline" class="text-success fw-bold">0</span></span>
     </div>
     <div class="card-body ">
       <div id="allSmS">
         <div id="welcomeAlert" class=" alertSMS text-center">
-          Welcome <span id="loginUser"></span>.Thanks for using this secured chat application.Say Hello to all connected users... Developed By <a href="https://www.instagram.com/scarlet_sujeet/" target="_blank">Sujeet Kumar </a>
-      </div>
+          Welcome <span id="loginUser"></span>.Thanks for using this secured chat application.Say Hello to all connected
+          users... Developed By <a href="https://www.instagram.com/scarlet_sujeet/" target="_blank">Sujeet Kumar </a>
+        </div>
+
+        <!-- <div class="inc float-start">
+          <div class="incID">Sujeet kumar</div>
+          <div id="in-msg">
+           
+            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cG9ydHJhaXR8ZW58MHx8MHx8&auto=format&fit=crop&w=400&q=60" alt="sent image"
+              class="img-fluid incImageSize">
+          </div>
+        </div>
+
+        <div class="out float-end">
+          <div class="outID"></div>
+          <div id="out-msg">
+            <img src="https://www.ddtoursdubai.com/images/gallery/jpeg.jpg" alt="sent image"
+              class="img-fluid incImageSize">
+         
+          </div>
+        </div> -->
+
+
       </div>
       <small id="typingUser"></small>
     </div>
     <div class="card-footer">
-      
-<audio id="myAudio">
-  <source src="recMuc.mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
-</audio>
-      <form id="form">
+
+      <audio id="myAudio">
+        <source src="recMuc.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+      <form id="form" class="d-flex justify-content-center align-items-center ">
+        <div>
+          <label for="image-input"><i class="fa-solid fa-file-circle-plus fs-5"></i></label>
+          <input type="file" name="file" id="image-input" class="d-none" accept="jpg,png,jpeg" />
+        </div>
         <input type="text" placeholder="Enter Your Message" name="msg" id="msginput" class="form-control"
           autocomplete="off">
         <button class="btn btn-dark">Send</button>
@@ -247,24 +287,24 @@
         return s[0].toUpperCase() + s.slice(1);
       }
       uname = capitalize(uname)
-      document.getElementById('loginUser').innerHTML=uname;
+      document.getElementById('loginUser').innerHTML = uname;
       // console.log(uname)
       var form = document.getElementById('form');
-      var msgSound= document.getElementById('msgSound');
-      var myAudio = document.getElementById("myAudio"); 
-      msgSound.addEventListener("click",function(e){
-       
+      var msgSound = document.getElementById('msgSound');
+      var myAudio = document.getElementById("myAudio");
+      msgSound.addEventListener("click", function (e) {
+
         soundStatus = !soundStatus;
         if (soundStatus == true) {
           window.navigator.vibrate(300)
-          msgSound.innerHTML ='<i class="fa-solid fa-volume-high"></i>';
+          msgSound.innerHTML = '<i class="fa-solid fa-volume-high"></i>';
         } else {
           window.navigator.vibrate(300)
-          msgSound.innerHTML ='<i class="fa-solid fa-volume-xmark"></i>';
+          msgSound.innerHTML = '<i class="fa-solid fa-volume-xmark"></i>';
         }
         console.log(soundStatus)
       })
-        
+
       var out = document.createElement('div');
       var input = document.getElementById('msginput');
       var typingUser = document.getElementById('typingUser');
@@ -275,8 +315,7 @@
         let newdiv = document.createElement('div');
         newdiv.classList.add(type, 'float-end')
         let marker = `<div id="outID"></div><br>
-          <span id="out-msg">${msg.msg} </span>
-   `;
+          <span id="out-msg">${msg.msg} </span> `;
         newdiv.innerHTML = marker;
         allsms.appendChild(newdiv)
 
@@ -286,17 +325,39 @@
       function appendMsg2(msg, type) {
         let newdiv = document.createElement('div');
         newdiv.classList.add(type, 'float-start')
-        let marker = `<div id="incID">${msg.name}</div>
+        let marker = `<div class="incID">${msg.name}</div>
           <span id="in-msg">${msg.msg}</span>`;
         newdiv.innerHTML = marker;
         allsms.appendChild(newdiv)
         if (soundStatus == true) {
           myAudio.play();
-        }else{
+        } else {
           myAudio.pause();
         }
         window.navigator.vibrate(200)
-        allsms.scrollTop = allsms.scrollHeight;
+        allsms.scrollTop = allsms.scrollHeight
+
+
+      }
+
+      function appendOutImage(type, imgBLOBdata){
+        let newdiv = document.createElement('div');
+        newdiv.classList.add(type, 'float-end');
+        var imgElement = `<div id="out-msg"><img src="data:image/jpeg;base64,${imgBLOBdata}"  class="img-fluid incImageSize " />`;
+        newdiv.innerHTML= imgElement
+        allsms.appendChild(newdiv)
+        window.navigator.vibrate(200)
+        allsms.scrollTop = allsms.scrollHeight
+      }
+
+      function appendINCImage(type, data){
+        let newdiv = document.createElement('div');
+        newdiv.classList.add(type, 'float-start');
+        var imgElement = `<div class="incID">${data.name}<div> <div id="in-msg"><img src="data:image/jpeg;base64,${data.data}"  class="img-fluid incImageSize " />`;
+        newdiv.innerHTML= imgElement
+        allsms.appendChild(newdiv)
+        window.navigator.vibrate(200)
+        allsms.scrollTop = allsms.scrollHeight
       }
 
       function appendNewUserMsg(msg, clr) {
@@ -315,8 +376,7 @@
       function appendMsg3(newMsg) {
         let newdiv = document.createElement('div');
         newdiv.classList.add('bg-dark', 'text-light', 'text-center', 'w-100', 'p-2')
-        let marker = `<span>${newMsg}</span>
-   `;
+        let marker = `<span>${newMsg}</span>`;
         newdiv.innerHTML = marker;
         allsms.appendChild(newdiv)
       }
@@ -334,7 +394,33 @@
           input.value = '';
           typingUser.innerText = '';
         }
+
+        // ******** Send images ******
+        const file = document.querySelector('#image-input').files[0];
+        // console.log(file)
+        if (file !== undefined) {
+          const reader = new FileReader();
+          reader.addEventListener('load', () => {
+            const base64String = reader.result.split(',')[1];
+            // console.log('ssad', base64String);
+            appendOutImage('out', base64String)
+            // Emit message to server with base64 string
+            socket.emit('image', {
+              name: uname,
+              type: 'image',
+              data: base64String
+            });
+          });
+          reader.readAsDataURL(file);
+
+          form.reset();
+        }
+
+        // ****** End send Image *-**** 
+
       });
+
+
 
       // show typing user
       let debounceTimer;
@@ -380,6 +466,13 @@
         statusUser.innerText = msg;
         // console.log("status", msg)
       });
+
+      // Handle image message from server
+      socket.on('imageCome', message => {
+        // console.log(message)
+        appendINCImage('inc', message)
+      });
+
     }
     // made by sujeet kumar @getsettalk
   </script>
