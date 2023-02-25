@@ -163,7 +163,12 @@
       gap: 5px;
     }
 
-
+    .iconhover:is(:hover,:focus) {
+      color: rgb(244, 14, 94);
+      font-size: 23px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
 
     @media screen And (max-width:800px) {
       .w-50 {
@@ -224,7 +229,7 @@
       <div id="allSmS">
         <div id="welcomeAlert" class=" alertSMS text-center">
           Welcome <span id="loginUser"></span>.Thanks for using this secured chat application.Say Hello to all connected
-          users... Developed By <a href="https://www.instagram.com/scarlet_sujeet/" target="_blank">Sujeet Kumar </a>
+          users... always use less than 1 mb images. Developed By <a href="https://www.instagram.com/scarlet_sujeet/" target="_blank">Sujeet Kumar </a>
         </div>
 
         <!-- <div class="inc float-start">
@@ -248,22 +253,24 @@
 
       </div>
       <small id="typingUser"></small>
+     
     </div>
     <div class="card-footer">
-
+    
       <audio id="myAudio">
         <source src="recMuc.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
       </audio>
       <form id="form" class="d-flex justify-content-center align-items-center ">
         <div>
-          <label for="image-input"><i class="fa-solid fa-file-circle-plus fs-5"></i></label>
-          <input type="file" name="file" id="image-input" class="d-none" accept="jpg,png,jpeg" />
+          <label for="image-input"><i class="fa-solid fa-file-circle-plus fs-5 iconhover fileLoadIcon" ></i></label>
+          <input type="file" name="file" id="image-input" class="d-none"  accept="image/*"  />
         </div>
         <input type="text" placeholder="Enter Your Message" name="msg" id="msginput" class="form-control"
           autocomplete="off">
         <button class="btn btn-dark">Send</button>
       </form>
+      
     </div>
   </div>
 
@@ -274,6 +281,7 @@
 
   <script src="/socket.io/socket.io.js"></script>
   <script>
+      var fileval = document.querySelector('#image-input');
     var socket = io();
     var totalUser = 0;
     let uname;
@@ -381,6 +389,21 @@
         allsms.appendChild(newdiv)
       }
 
+
+      function checkIsPhotoLoaded(){
+        // if files is not load in input filed than show his color black 
+        // otherwise show green
+        const fileLoadIcon = document.querySelector('.fileLoadIcon');
+      
+        if(fileval.value !== ''){
+          fileLoadIcon.style.color='red'
+        
+        } else {
+          fileLoadIcon.style.color='black'
+        }
+      }
+
+      fileval.addEventListener('change',checkIsPhotoLoaded)
       form.addEventListener('submit', function (e) {
         e.preventDefault();
         if (input.value) {
@@ -412,8 +435,9 @@
             });
           });
           reader.readAsDataURL(file);
-
+         
           form.reset();
+          checkIsPhotoLoaded()
         }
 
         // ****** End send Image *-**** 
