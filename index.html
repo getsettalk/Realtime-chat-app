@@ -355,11 +355,7 @@
         newdiv.innerHTML= imgElement
         allsms.appendChild(newdiv)
         window.navigator.vibrate(200)
-        if (soundStatus == true) {
-          myAudio.play();
-        } else {
-          myAudio.pause();
-        }
+      
         allsms.scrollTop = allsms.scrollHeight
       }
 
@@ -370,6 +366,11 @@
         newdiv.innerHTML= imgElement
         allsms.appendChild(newdiv)
         window.navigator.vibrate(200)
+        if (soundStatus == true) {
+          myAudio.play();
+        } else {
+          myAudio.pause();
+        }
         allsms.scrollTop = allsms.scrollHeight
       }
 
