@@ -9,7 +9,10 @@
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <title>Secured Free Chat App:online</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
-
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
   <meta name="description" content="This application is built by Sujeet kumar">
   <style>
     :root {
@@ -61,6 +64,11 @@
 
     .card-body {
       padding: 0px !important;
+
+    }
+
+    .card-body.dark-mode {
+      background-color: #182848;
     }
 
     .alertSMS {
@@ -92,6 +100,7 @@
     }
 
     .card-body .inc #in-msg {
+      position: relative;
       float: left;
       padding: 5px;
       max-width: 70%;
@@ -103,7 +112,23 @@
 
     .card-body .inc #in-msg .incImageSize {
       width: 100%;
-      
+
+    }
+
+    .card-body .inc #in-msg .incImageSize+.download-btn {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 25px;
+      height: 25px;
+      background: #f2709c;
+      outline: none;
+      border: none;
+      border-radius: 50%;
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
     }
 
     .sound {
@@ -114,13 +139,27 @@
       box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
     }
 
+    .themeMode {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      padding: 1.2px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #626bb9;
+      cursor: pointer;
+      box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
+    }
+
     .card-body .inc .incID {
-      color: #484646;
       color: #333;
       font-size: 14px;
       font-weight: 600;
       letter-spacing: 0.3px;
     }
+
+
 
     .card-body .out {
       width: 70%;
@@ -163,7 +202,7 @@
       gap: 5px;
     }
 
-    .iconhover:is(:hover,:focus) {
+    .iconhover:is(:hover, :focus) {
       color: rgb(244, 14, 94);
       font-size: 23px;
       border-radius: 50%;
@@ -215,6 +254,21 @@
         background: #555;
       }
     }
+
+    /* for dark theme  */
+    /* for dark theme */
+    .card-body.dark-mode .inc .incID {
+      color: #e9eafd;
+    }
+
+    #typingUser {
+      color: rgb(7, 180, 7);
+      font-weight: 500;
+    }
+
+    .fa-solid {
+      color: #0f0d89;
+    }
   </style>
 </head>
 
@@ -223,13 +277,18 @@
     <div class="card-header">
       <span class="text-light fw-bold">Group chat to world wide</span>
       <span class=" fw-bold"><span class="sound" id="msgSound"> <i class="fa-solid fa-volume-high"></i></span> Online :
-        <span id="tonline" class="text-success fw-bold">0</span></span>
+        <span id="tonline" class="text-success fw-bold">0</span>
+      </span>
+      <span class="fw-bold"><span class="themeMode" id="changeMode">
+          <i class="fa-solid fa-palette"></i>
+        </span>
     </div>
     <div class="card-body ">
       <div id="allSmS">
         <div id="welcomeAlert" class=" alertSMS text-center">
           Welcome <span id="loginUser"></span>.Thanks for using this secured chat application.Say Hello to all connected
-          users... always use less than 1 mb images. Developed By <a href="https://www.instagram.com/scarlet_sujeet/" target="_blank">Sujeet Kumar </a>
+          users... always use less than 1 mb images. Developed By <a href="https://www.instagram.com/scarlet_sujeet/"
+            target="_blank">Sujeet Kumar </a>
         </div>
 
         <!-- <div class="inc float-start">
@@ -253,27 +312,46 @@
 
       </div>
       <small id="typingUser"></small>
-     
+
     </div>
     <div class="card-footer">
-    
+
       <audio id="myAudio">
         <source src="recMuc.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
       </audio>
       <form id="form" class="d-flex justify-content-center align-items-center ">
         <div>
-          <label for="image-input"><i class="fa-solid fa-file-circle-plus fs-5 iconhover fileLoadIcon" ></i></label>
-          <input type="file" name="file" id="image-input" class="d-none"  accept="image/*"  />
+          <label for="image-input"><i class="fa-solid fa-file-circle-plus fs-5 iconhover fileLoadIcon"></i></label>
+          <input type="file" name="file" id="image-input" class="d-none" accept="image/*" />
         </div>
         <input type="text" placeholder="Enter Your Message" name="msg" id="msginput" class="form-control"
           autocomplete="off">
         <button class="btn btn-dark">Send</button>
       </form>
-      
+
     </div>
   </div>
 
+  <!-- Add this modal to the HTML structure -->
+  <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="imageModalLabel">Pasted Image</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <img id="pastedImage" class="img-fluid" alt="Pasted Image">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" id="sendPastedImage">Send Image</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- modal for show pasted image    -->
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
@@ -281,7 +359,7 @@
 
   <script src="/socket.io/socket.io.js"></script>
   <script>
-      var fileval = document.querySelector('#image-input');
+    var fileval = document.querySelector('#image-input');
     var socket = io();
     var totalUser = 0;
     let uname;
@@ -348,22 +426,32 @@
 
       }
 
-      function appendOutImage(type, imgBLOBdata){
+      function appendOutImage(type, imgBLOBdata) {
         let newdiv = document.createElement('div');
         newdiv.classList.add(type, 'float-end');
         var imgElement = `<div id="out-msg"><img src="data:image/jpeg;base64,${imgBLOBdata}"  class="img-fluid incImageSize " />`;
-        newdiv.innerHTML= imgElement
+        newdiv.innerHTML = imgElement
         allsms.appendChild(newdiv)
         window.navigator.vibrate(200)
-      
-        allsms.scrollTop = allsms.scrollHeight
+
+        setTimeout(() => {
+          allsms.scrollTop = allsms.scrollHeight
+        }, 100); // Adjust the delay timing as needed
+
       }
 
-      function appendINCImage(type, data){
+      function appendINCImage(type, data) {
         let newdiv = document.createElement('div');
         newdiv.classList.add(type, 'float-start');
-        var imgElement = `<div class="incID">${data.name}<div> <div id="in-msg"><img src="data:image/jpeg;base64,${data.data}"  class="img-fluid incImageSize " />`;
-        newdiv.innerHTML= imgElement
+        var imgElement = `
+            <div class="incID">${data.name}</div>
+            <div id="in-msg">
+              <img src="data:image/jpeg;base64,${data.data}" class="img-fluid incImageSize">
+              <button class="download-btn" onclick="downloadImage('${data.data}')">
+                <i class="fa-solid fa-cloud-arrow-down"></i>
+              </button>
+            </div>`;
+        newdiv.innerHTML = imgElement
         allsms.appendChild(newdiv)
         window.navigator.vibrate(200)
         if (soundStatus == true) {
@@ -371,7 +459,10 @@
         } else {
           myAudio.pause();
         }
-        allsms.scrollTop = allsms.scrollHeight
+        setTimeout(() => {
+          allsms.scrollTop = allsms.scrollHeight
+        }, 100); // Adjust the delay timing as needed
+
       }
 
       function appendNewUserMsg(msg, clr) {
@@ -395,21 +486,29 @@
         allsms.appendChild(newdiv)
       }
 
+      function downloadImage(base64Data) {
+        // Create an 'a' element
+        const link = document.createElement('a');
+        link.href = `data:image/jpeg;base64,${base64Data}`;
+        link.download = 'image.jpg'; // Set the filename for the downloaded image
+        link.click();
+      }
 
-      function checkIsPhotoLoaded(){
+
+      function checkIsPhotoLoaded() {
         // if files is not load in input filed than show his color black 
         // otherwise show green
         const fileLoadIcon = document.querySelector('.fileLoadIcon');
-      
-        if(fileval.value !== ''){
-          fileLoadIcon.style.color='red'
-        
+
+        if (fileval.value !== '') {
+          fileLoadIcon.style.color = 'red'
+
         } else {
-          fileLoadIcon.style.color='black'
+          fileLoadIcon.style.color = 'black'
         }
       }
 
-      fileval.addEventListener('change',checkIsPhotoLoaded)
+      fileval.addEventListener('change', checkIsPhotoLoaded)
       form.addEventListener('submit', function (e) {
         e.preventDefault();
         if (input.value) {
@@ -441,7 +540,7 @@
             });
           });
           reader.readAsDataURL(file);
-         
+
           form.reset();
           checkIsPhotoLoaded()
         }
@@ -504,6 +603,53 @@
       });
 
     }
+    document.addEventListener('DOMContentLoaded', function () {
+      // Toggle dark mode on button click
+      document.getElementById('changeMode').addEventListener('click', function () {
+        document.querySelector('.card-body').classList.toggle('dark-mode')
+        // document.body.classList.toggle('dark-mode');
+
+      });
+    });
+
+    // Add this code to handle paste event
+    document.addEventListener('paste', function (event) {
+      var items = (event.clipboardData || event.originalEvent.clipboardData).items;
+      for (index in items) {
+        var item = items[index];
+        if (item.kind === 'file' && item.type.includes('image')) {
+          var blob = item.getAsFile();
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            var pastedImageSrc = e.target.result;
+            // Display the pasted image in the modal
+            document.getElementById('pastedImage').src = pastedImageSrc;
+            // Show the modal
+            var imageModal = new bootstrap.Modal(document.getElementById('imageModal'), { backdrop: 'static' });
+            imageModal.show();
+          };
+          reader.readAsDataURL(blob);
+          break;
+        }
+      }
+    });
+
+    // Add this code to handle send button click in the modal
+    document.getElementById('sendPastedImage').addEventListener('click', function () {
+      // Get the image source from the modal
+      var pastedImageSrc = document.getElementById('pastedImage').src;
+      // Send the image using your existing logic (you may need to modify the server-side logic)
+      socket.emit('image', {
+        name: uname,
+        type: 'image',
+        data: pastedImageSrc.split(',')[1]
+      });
+      // Hide the modal
+      var imageModal = bootstrap.Modal.getInstance(document.getElementById('imageModal'));
+      appendOutImage('out', pastedImageSrc.split(',')[1])
+      imageModal.hide();
+    });
+
     // made by sujeet kumar @getsettalk
   </script>
 </body>
