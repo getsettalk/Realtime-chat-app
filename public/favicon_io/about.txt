@@ -1,0 +1,6 @@
+This favicon was generated using the following font:
+
+- Font Title: Coustard
+- Font Author: Copyright 2011 Vernon Adams (vern@newtypography.co.uk)
+- Font Source: http://fonts.gstatic.com/s/coustard/v16/3XFuErgg3YsZ5fqUU-2LkEHmb_jU3eRL.ttf
+- Font License: SIL Open Font License, 1.1 (http://scripts.sil.org/OFL))
